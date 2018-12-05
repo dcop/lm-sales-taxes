@@ -1,18 +1,33 @@
+const Rounder = require('../util/rounder')
+
+/**
+ * Receipt class
+ */
 class Receipt {
-    constructor(items = [] /* CartItem[] */ , taxes /* number */ , total /* number */ ) {
+
+    /**
+     * Creates new instance of Receipt
+     * 
+     * @param {CartItem[]} items 
+     * @param {number} taxes 
+     * @param {number} total 
+     */
+    constructor(items = [], taxes, total) {
         this.items = items;
         this.taxes = taxes;
         this.total = total;
     }
 
     /**
-     * Prints to the console
+     * Prints the receipt with favourite "printer"
+     * 
+     * @callback out
      */
     print(out) {
         this.items.forEach(item => out(item.toString()));
 
-        out("Sales taxes:", this.taxes);
-        out("Total sales:", this.total);
+        out("Sales taxes:", Rounder.format(this.taxes));
+        out("Total sales:", Rounder.format(this.total));
     }
 }
 

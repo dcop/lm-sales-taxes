@@ -1,14 +1,24 @@
 const Rounder = require("../util/rounder");
+const Operation = require("../util/operation")
 
-/* export */
+/**
+ * Class CartItem
+ */
 class CartItem {
+
+    /**
+     * Creates a new instance of CartItem
+     * 
+     * @param {Product} product the product
+     * @param {number} quantity the quantity of this product
+     */
     constructor(product, quantity) {
         this.product = product;
         this.quantity = quantity;
 
         this.name = this.product.name;
-        this.taxes = Rounder.round(this.product.price * this.product.tax);
-        this.taxedPrice = Rounder.format(this.taxes + this.product.price);
+        this.taxes = Rounder.round(Operation.multiply(this.product.price, this.product.tax));
+        this.taxedPrice = Operation.sum(this.taxes, this.product.price);
     }
 
     /**
@@ -17,7 +27,7 @@ class CartItem {
       @returns {number}
      */
     getTaxesAmount() {
-        return this.taxes * this.quantity
+        return Operation.multiply(this.taxes, this.quantity)
     }
 
     /**
@@ -26,11 +36,11 @@ class CartItem {
      * @returns {number}
      */
     getTotalAmount() {
-        return this.quantity * this.taxedPrice;
+        return Operation.multiply(this.taxedPrice, this.quantity);
     }
 
     /**
-     * String representation
+     * String representation of this cart item
      */
     toString() {
         return [

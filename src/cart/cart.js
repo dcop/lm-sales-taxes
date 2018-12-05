@@ -2,11 +2,16 @@ const Receipt = require("../receipt/receipt");
 const CartItem = require("./cartItem");
 const ReceiptCreator = require("../receipt/receiptCreator")
 const Rounder = require("../util/rounder");
+const Operation = require("../util/operation")
 
 /**
  * Cart class
  */
 class Cart {
+
+    /**
+     * Creates new instance of Cart
+     */
     constructor() {
         this.items = []
     }
@@ -14,11 +19,11 @@ class Cart {
     /**
      * Adds a product and its quantity to the cart
      * 
-     * @param {Product} product 
-     * @param {number} quantity
+     * @param {Product} product product to add to cart
+     * @param {number} [quantity=1] how many of the same product
      * @returns {void}
      */
-    add(product /* Product */ , qty = 1 /* number */ ) {
+    add(product, qty = 1) {
         this.items.push(
             new CartItem(product, qty)
         );
@@ -27,25 +32,24 @@ class Cart {
     /**
      *  Gets the total amount of the cart, tax included
      * 
-     * @returns {string}
+     * @returns {number}
      */
     getTotalAmount() {
-        return Rounder.format(
-            this.items.map(p => p.getTotalAmount())
-            .reduce((prev, curr) => prev + curr)
-        );
+        return this.items
+            .map(p => p.getTotalAmount())
+            .reduce(Operation.sum)
     }
 
     /**
      * Gets the total amount of taxes of the cart
      * 
-     * @returns {string}
+     * @returns {number}
      */
     getTaxesAmount() {
-        return Rounder.format(
-            this.items.map(p => p.getTaxesAmount())
-            .reduce((prev, curr) => prev + curr)
-        );
+        return Rounder.round(this.items
+            .map(p => p.getTaxesAmount())
+            .reduce(Operation.sum)
+        )
     }
 
     /**

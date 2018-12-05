@@ -4,6 +4,7 @@
 class Product {
 
     /**
+     * Create new instance of Product
      * 
      * @param {string} name 
      * @param {number} price 
