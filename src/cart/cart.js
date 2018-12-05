@@ -1,6 +1,6 @@
 const Receipt = require("../receipt/receipt");
 const CartItem = require("./cartItem");
-const ReceiptGenerator = require("../receipt/receiptGenerator")
+const ReceiptCreator = require("../receipt/receiptCreator")
 const Rounder = require("../util/rounder");
 
 /**
@@ -19,7 +19,9 @@ class Cart {
      * @returns {void}
      */
     add(product /* Product */ , qty = 1 /* number */ ) {
-        this.items.push(new CartItem(product, qty));
+        this.items.push(
+            new CartItem(product, qty)
+        );
     }
 
     /**
@@ -28,7 +30,10 @@ class Cart {
      * @returns {string}
      */
     getTotalAmount() {
-        return Rounder.format(this.items.map(p => p.getTotalAmount()).reduce((prev, curr) => prev + curr));
+        return Rounder.format(
+            this.items.map(p => p.getTotalAmount())
+            .reduce((prev, curr) => prev + curr)
+        );
     }
 
     /**
@@ -37,7 +42,10 @@ class Cart {
      * @returns {string}
      */
     getTaxesAmount() {
-        return Rounder.format(this.items.map(p => p.getTaxesAmount()).reduce((prev, curr) => prev + curr));
+        return Rounder.format(
+            this.items.map(p => p.getTaxesAmount())
+            .reduce((prev, curr) => prev + curr)
+        );
     }
 
     /**
@@ -46,7 +54,11 @@ class Cart {
      * @returns {Receipt}
      */
     purchase() {
-        return ReceiptGenerator.generate(this.items, this.getTaxesAmount(), this.getTotalAmount());
+        return ReceiptCreator.create(
+            this.items,
+            this.getTaxesAmount(),
+            this.getTotalAmount()
+        );
     }
 }
 

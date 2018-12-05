@@ -33,7 +33,11 @@ class CartItem {
      * String representation
      */
     toString() {
-        return [this.quantity, this.name + ":", Rounder.format(this.getTotalAmount())].join(" ")
+        return [
+            this.quantity,
+            this.name + ":",
+            Rounder.format(this.getTotalAmount())
+        ].join(" ")
     }
 }
 
