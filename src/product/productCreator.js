@@ -1,5 +1,5 @@
 const Product = require("./product");
-const TaxCalculator = require("../taxes/taxCalculator");
+const TaxCalculator = require("../tax/taxCalculator");
 
 /**
  * Factory for product
