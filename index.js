@@ -2,14 +2,9 @@ const Cart = require('./src/cart/cart')
 const ProductType = require('./src/product/productType')
 const ProductCreator = require('./src/product/productCreator')
 
-const possibleOuts = [
-    console.log.bind(console),
-    document.writeln.bind(document)
-]
-
 // print writing to the console or document
 const out = (...params) => {
-    possibleOuts[1](params.join(' '))
+    document.writeln(params.join(' ') + '<br/>')
 };
 
 // Convenient method
@@ -20,7 +15,7 @@ const test = (items = [], n) => {
         cart.add(prod)
     });
 
-    out("\n=============== OUTPUT " + n + " ===============\n")
+    out("<br/>=============== OUTPUT " + n + " ===============")
     cart.purchase().print(out);
 }
 
@@ -30,7 +25,7 @@ testCase2();
 testCase3();
 
 function testCase1() {
-    out("\n=============== INPUT 1 ===============\n")
+    out("<br/>=============== INPUT 1 ===============")
     out("1 book at 12.49")
     out("1 music CD at 14.99")
     out("1 chocolate bar at 0.85")
@@ -43,7 +38,7 @@ function testCase1() {
 }
 
 function testCase2() {
-    out("\n=============== INPUT 2 ===============\n")
+    out("<br/>=============== INPUT 2 ===============")
     out("1 imported box of chocolates at 10.00")
     out("1 imported bottle of perfume at 47.50")
 
@@ -54,7 +49,7 @@ function testCase2() {
 }
 
 function testCase3() {
-    out("\n=============== INPUT 3 ===============\n")
+    out("<br/>=============== INPUT 3 ===============")
     out("1 imported bottle of perfume at 27.99")
     out("1 bottle of perfume at 18.99")
     out("1 packet of headache pills at 9.75")

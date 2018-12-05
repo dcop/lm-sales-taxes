@@ -1,9 +1,8 @@
-const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: 'development',
-    // watch: true,
     devtool: 'inline-source-map',
     entry: ['./index.js'],
     devServer: {
@@ -11,6 +10,9 @@ module.exports = {
         hot: true
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Sales Taxes - Output page'
+        }),
         new webpack.HotModuleReplacementPlugin()
     ],
     module: {
